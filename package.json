@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha test/**/*.spec.js"
+    "test": "mocha test/**/*.spec.js",
+    "start": "node ./bin/www"
   },
   "author": "Steven White <steven@galchemy.codes>",
   "license": "ISC",
@@ -20,5 +21,12 @@
     "mocha": "^3.4.2",
     "sinon": "^2.3.4",
     "sinon-chai": "^2.11.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "multer": "^1.3.0"
   }
 }
