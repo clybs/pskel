@@ -1,14 +1,23 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const config = require('./config');
 
 // Get routes
-var index = require('./routes/index');
-var user = require('./routes/user');
 var login = require('./routes/login');
 var players = require('./routes/players');
+var users = require('./routes/users');
+
+// Initialize DB
+mongoose.Promise = global.Promise;
+mongoose.connect(config.mongoDb.url);
+mongoose.connection.on('error', err => {
+  console.log(`DB error: ${err}`);
+  process.exit();
+});
 
 // Initialize express
 var app = express();
@@ -18,11 +27,57 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// Authentication middleware
+var auth = function(req, res, next) {
+  // Get the token
+  let token = req.headers.authorization;
+
+  // Check if there was a token defined
+  if (token === undefined) {
+    return res.status(403).send({
+      success: false,
+      error: 'No token provided'
+    });
+  }
+
+  // Check if bearer keyword exists
+  if (token.indexOf('Bearer ') === -1) {
+    return res.json({
+      success: false,
+      message: 'Failed to authenticate token'
+    });
+  }
+
+  token = token.replace('Bearer', ' ');
+  token = token.trim();
+
+  if (token === '') {
+    return res.status(403).send({
+      success: false,
+      error: 'No token provided'
+    });
+  }
+
+  // Check if correct
+  jwt.verify(token, config.jwt.secret, (err, authData) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: 'Failed to authenticate token'
+      });
+    }
+    req.authData = authData;
+    next();
+  });
+};
+
+// Do authentication
+app.use('/api/players', auth);
+
 // Map the routes
-app.use('/api', index);
-app.use('/api/user', user);
 app.use('/api/login', login);
 app.use('/api/players', players);
+app.use('/api/user', users);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

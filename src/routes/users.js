@@ -2,47 +2,47 @@ const express = require('express');
 const router = express.Router();
 const controllers = require('../controllers/');
 
-const Player = new controllers.Player();
+const User = new controllers.User();
 
-// Create a player
+// Create a user
 router.post('/', async (req, res, next) => {
-  let result = await Player.Create(req);
+  let result = await User.Create(req);
   res.status(result.status);
   delete result.status;
 
   res.json(result);
 });
 
-// List players
+// List users
 router.get('/', async (req, res, next) => {
-  let result = await Player.List(req.authData.created_by);
+  let result = await User.List();
   res.status(result.status);
   delete result.status;
 
   res.json(result);
 });
 
-// Read a player
+// Read a user
 router.get('/:id', async (req, res, next) => {
-  let result = await Player.Read(req.params.id);
+  let result = await User.Read(req.params.id);
   res.status(result.status);
   delete result.status;
 
   res.json(result);
 });
 
-// Update a player
+// Update a user
 router.put('/:id', async (req, res, next) => {
-  let result = await Player.Update(req.params.id, req);
+  let result = await User.Update(req.params.id, req);
   res.status(result.status);
   delete result.status;
 
   res.json(result);
 });
 
-// Delete a player
+// Delete a user
 router.delete('/:id', async (req, res, next) => {
-  let result = await Player.Delete(req.params.id, req.authData.created_by);
+  let result = await User.Delete(req.params.id);
   res.status(result.status);
   delete result.status;
 
