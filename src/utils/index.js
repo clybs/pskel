@@ -1,9 +1,11 @@
-const Results = require('./results');
+const Matches = require('./matches');
 const Passwords = require('./passwords');
-const Matches = require('./matches')
+const Ranking = require('./ranking');
+const Results = require('./results');
 
 module.exports = {
-  Results,
   Matches,
-  Passwords
+  Passwords,
+  Ranking,
+  Results
 };

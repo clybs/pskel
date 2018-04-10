@@ -72,7 +72,7 @@ describe('Matches API', () => {
         });
     });
 
-    ['player_one', 'player_one_score', 'player_two', 'player_two_score', 'winner', 'loser', 'created_by'].forEach(field => {
+    ['player_one', 'player_one_score', 'player_two', 'player_two_score', 'winner', 'loser'].forEach(field => {
       it(`should fail if ${ field } not present`, done => {
         chai.request(server)
           .post('/api/matches')
