@@ -10,6 +10,7 @@ const config = require('./config');
 var login = require('./routes/login');
 var matches = require('./routes/matches');
 var players = require('./routes/players');
+var stats = require('./routes/stats');
 var users = require('./routes/users');
 
 // Initialize DB
@@ -80,6 +81,7 @@ app.use('/api/players', auth);
 app.use('/api/login', login);
 app.use('/api/matches', matches);
 app.use('/api/players', players);
+app.use('/api/stats', stats);
 app.use('/api/user', users);
 
 // Catch 404 and forward to error handler

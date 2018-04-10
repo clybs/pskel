@@ -61,6 +61,15 @@ class Results {
   }
 
   // Encode success with status code
+  EncodeSuccessStats(result, statusCode) {
+    return {
+      success: true,
+      status: statusCode,
+      stats: result
+    };
+  }
+
+  // Encode success with status code
   EncodeSuccessPlayer(result, statusCode) {
     return {
       success: true,
@@ -93,6 +102,15 @@ class Results {
       success: true,
       status: statusCode,
       players: results.map(data => this.getPlayerDetails(data))
+    };
+  }
+
+  // Encode success list with status code
+  EncodeSuccessStatsList(results, statusCode) {
+    return {
+      success: true,
+      status: statusCode,
+      stats: results
     };
   }
 

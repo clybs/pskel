@@ -28,7 +28,6 @@ class Matches {
     let requiredParams = [
       match.player_one,
       match.player_two,
-      match.created_by,
       match.winner,
       match.loser,
       match.player_one_score,
@@ -36,6 +35,7 @@ class Matches {
     ];
 
     let missingParameter = false;
+    // let parameterMissing = '';
 
     requiredParams.map(data => {
       if (_.isUndefined(data) || _.isNil(data)) {
