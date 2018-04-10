@@ -8,6 +8,7 @@ const config = require('./config');
 
 // Get routes
 var login = require('./routes/login');
+var matches = require('./routes/matches');
 var players = require('./routes/players');
 var users = require('./routes/users');
 
@@ -72,10 +73,12 @@ var auth = function(req, res, next) {
 };
 
 // Do authentication
+app.use('/api/matches', auth);
 app.use('/api/players', auth);
 
 // Map the routes
 app.use('/api/login', login);
+app.use('/api/matches', matches);
 app.use('/api/players', players);
 app.use('/api/user', users);
 

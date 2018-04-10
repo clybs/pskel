@@ -20,5 +20,15 @@ module.exports = {
     last_name: 'Boll',
     rating: 8000,
     handedness: 'right'
+  },
+  player3: {
+    first_name: 'John',
+    last_name: 'Doe',
+    rating: 8000,
+    handedness: 'right'
+  },
+  match: {
+    player_one_score: 7,
+    player_two_score: 4
   }
 };
